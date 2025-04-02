@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biolink Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #131c25 9%, #7a7a7a 91%); /* Gradient from dark to gray */
+            color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 420px; /* Adjusted for better spacing */
+            padding: 20px;
+            box-sizing: border-box;
+            border: 1px solid #444; /* Subtle border to make it stand out */
+            background: rgba(0, 0, 0, 0.7); /* Slightly darker background for the container */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Darker shadow for a more intense effect */
+        }
+
+        p.description {
+            font-size: 16px;
+            color: #ccc; /* Slightly lighter description color for contrast */
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow to match theme */
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 0; /* No round corners for the profile picture */
+            object-fit: cover;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for the profile picture */
+        }
+
+        .profile-img:hover {
+            transform: translateY(-8px); /* Subtle lift effect */
+        }
+
+        .link {
+            display: block;
+            font-size: 18px;
+            margin: 12px 0;
+            text-decoration: none;
+            color: #fff;
+            background-color: #333; /* Darker link background */
+            padding: 12px;
+            border: none; /* No rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .link:hover {
+            background-color: #444; /* Slightly darker on hover */
+            transform: translateY(-4px); /* Subtle lift effect */
+        }
+
+        iframe {
+            border: none;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%; /* Full width */
+            max-width: 320px; /* Max width for responsiveness */
+            height: 80px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Drop shadow for iframe */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        iframe:hover {
+            transform: translateY(-5px); /* Lift effect for iframe */
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
+        }
+
+        ::selection {
+            background-color: #222; /* Darker background for text selection */
+            color: #fff; /* White text for selected text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Picture -->
+        <img src="pfp.png" alt="Profile Picture" class="profile-img">
+        
+        <!-- Name -->
+        <h1>John Doe</h1>
+        
+        <!-- Description -->
+        <p class="description">This is a description area where you can introduce yourself. Keep it short and sweet!</p>
+
+        <!-- Links -->
+        <a href="https://example.com/" class="link" target="_blank">My Portfolio</a>
+        <a href="https://link.com/" class="link" target="_blank">My GitHub</a>
+        <a href="https://link.com/" class="link" target="_blank">LinkedIn</a>
+        <a href="https://link.com/" class="link" target="_blank">Contact Me</a>
+
+        <!-- Spotify Embed -->
+        <iframe src="https://open.spotify.com/embed/track/2qSkIjg1o9h3YT9RAgYN75?utm_source=generator" loading="lazy"></iframe>
+    </div>
+</body>
+</html>
