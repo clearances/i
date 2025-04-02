@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biolink Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <title>Biolink Configuration</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"> <!-- Added DM Sans Font -->
     <style>
         body {
-            background: linear-gradient(to bottom, #131c25 9%, #7a7a7a 91%); /* Gradient from dark to gray */
-            color: #ffffff;
-            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(to bottom, #131c25 9%, #7a7a7a 91%); /* Gradient from white to black, starting slightly below */
+            color: #ffffff; /* White text */
+            font-family: 'DM Sans', sans-serif; /* Using DM Sans font */
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,39 +20,38 @@
         }
 
         .container {
-            width: 420px; /* Adjusted for better spacing */
-            padding: 20px;
+            padding: 40px;
+            width: 400px; /* Container width */
             box-sizing: border-box;
-            border: 1px solid #444; /* Subtle border to make it stand out */
-            background: rgba(0, 0, 0, 0.7); /* Slightly darker background for the container */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+            border: 1px solid #333; /* Dark border around the container */
+            background-color: #1a2128; /* Dark background color for container */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Dark shadow for depth */
         }
 
         h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5); /* Darker shadow for a more intense effect */
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow for header */
         }
 
         p.description {
             font-size: 16px;
-            color: #ccc; /* Slightly lighter description color for contrast */
+            color: #cccccc; /* Lighter gray for description */
             margin-bottom: 20px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow to match theme */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Stronger shadow for description */
         }
 
         .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 0; /* No round corners for the profile picture */
+            width: 140px; /* Profile picture size */
+            height: 140px; /* Profile picture size */
             object-fit: cover;
             margin-bottom: 20px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for the profile picture */
+            transition: transform 0.3s ease; /* Smooth hover transition */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger and centered shadow for profile picture */
         }
 
         .profile-img:hover {
-            transform: translateY(-8px); /* Subtle lift effect */
+            transform: translateY(-10px); /* Move up slightly on hover */
         }
 
         .link {
@@ -60,41 +59,40 @@
             font-size: 18px;
             margin: 12px 0;
             text-decoration: none;
-            color: #fff;
-            background-color: #333; /* Darker link background */
+            color: #ffffff; /* White text for links */
+            background-color: #333; /* Dark background for links */
             padding: 12px;
             border: none; /* No rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Shadow for links */
         }
 
         .link:hover {
-            background-color: #444; /* Slightly darker on hover */
-            transform: translateY(-4px); /* Subtle lift effect */
+            background-color: #444; /* Slightly darker background on hover */
+        }
+
+        /* Change text selection color */
+        ::selection {
+            background-color: #000; /* Black background for selected text */
+            color: #fff; /* White text color for the selected text */
         }
 
         iframe {
-            border: none;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%; /* Full width */
-            max-width: 320px; /* Max width for responsiveness */
-            height: 80px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Drop shadow for iframe */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px; /* Adds space between the links and the Spotify embed */
+            display: block; /* Makes the iframe behave like a block element */
+            margin-left: auto; /* Centers the iframe horizontally */
+            margin-right: auto; /* Centers the iframe horizontally */
+            width: 300px; /* Set width to 300px */
+            height: 80px; /* Keeps the height as per your original request */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Drop shadow for iframe */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for both shadow and movement */
         }
 
         iframe:hover {
-            transform: translateY(-5px); /* Lift effect for iframe */
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow on hover */
+            transform: translateY(-5px); /* Move up slightly on hover */
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
         }
 
-        ::selection {
-            background-color: #222; /* Darker background for text selection */
-            color: #fff; /* White text for selected text */
-        }
     </style>
 </head>
 <body>
@@ -103,19 +101,19 @@
         <img src="pfp.png" alt="Profile Picture" class="profile-img">
         
         <!-- Name -->
-        <h1>John Doe</h1>
+        <h1>Name-Example</h1>
         
         <!-- Description -->
-        <p class="description">This is a description area where you can introduce yourself. Keep it short and sweet!</p>
+        <p class="description">Description would go here.....</p>
 
         <!-- Links -->
-        <a href="https://example.com/" class="link" target="_blank">My Portfolio</a>
-        <a href="https://link.com/" class="link" target="_blank">My GitHub</a>
-        <a href="https://link.com/" class="link" target="_blank">LinkedIn</a>
-        <a href="https://link.com/" class="link" target="_blank">Contact Me</a>
+        <a href="https://link.com/" class="link" target="_blank">Link 1</a>
+        <a href="https://link.com/" class="link" target="_blank">Link 2</a>
+        <a href="https://link.com/" class="link" target="_blank">Link 3</a>
+        <a href="https://link.com/" class="link" target="_blank">Link 4</a>
 
         <!-- Spotify Embed -->
-        <iframe src="https://open.spotify.com/embed/track/2qSkIjg1o9h3YT9RAgYN75?utm_source=generator" loading="lazy"></iframe>
+        <iframe src="https://open.spotify.com/embed/track/2qSkIjg1o9h3YT9RAgYN75?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 </body>
 </html>
