@@ -3,116 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biolink Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"> <!-- Added DM Sans Font -->
+    <title>@</title>
+    <!-- Set favicon to your provided image -->
+    <link rel="icon" href="https://files.catbox.moe/82xzyf.png" />
+    <!-- Import DM Sans font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
     <style>
+        /* Body background color */
         body {
-            background: linear-gradient(to bottom, #131c25 9%, #7a7a7a 91%); /* Gradient from white to black, starting slightly below */
-            color: #ffffff; /* Black text */
-            font-family: 'DM Sans', sans-serif; /* Using DM Sans font */
+            font-family: 'DM Sans', sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+            background-color: black; /* Set background to black */
+            color: rgb(116, 212, 204); /* Default text color */
+            user-select: none; /* Prevent text selection */
         }
 
-        .container {
-            padding: 40px;
-            width: 400px; /* Container width */
-            box-sizing: border-box;
-        }
-
+        /* Title Style */
         h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow for header */
+            color: white; /* Keep the title in white */
+        }
+        /* Set the cursor to default globally */
+* {
+    cursor: default !important;
+}
+
+
+        /* Specific text styles for Balance and Address */
+        .balance, .address {
+            color: white; /* White color for balance and address */
         }
 
-        p.description {
-            font-size: 16px;
-            color: #ffffff;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2); /* Stronger shadow for description */
+        .value {
+            color: rgb(116, 212, 204); /* Keep the value text in RGB color */
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        .profile-img {
-            width: 140px; /* Profile picture size */
-            height: 140px; /* Profile picture size */
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            transition: transform 0.3s ease; /* Smooth hover transition */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger and centered shadow for profile picture */
+        .eth-logo {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            margin-left: 8px;
+            margin-top: 0.5%; /* Adjust logo's vertical position */
         }
 
-        .profile-img:hover {
-            transform: translateY(-10px); /* Move up slightly on hover */
+        /* Draggable container */
+        #draggable-container {
+            position: absolute;
+            padding: 20px;
+            background-color: black; /* Keep background black */
+            color: rgb(116, 212, 204); /* Set text color for draggable container */
+            cursor: grab;
         }
 
-        .link {
-            display: block;
-            font-size: 18px;
-            margin: 12px 0;
-            text-decoration: none;
-            color: #000;
-            background-color: #f1f1f1; /* Light background for links */
-            padding: 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Stronger and centered shadow for links */
+        .balance, .value {
+            font-size: 1.6em;
+            margin-top: 10px;
         }
 
-        .link:hover {
-            background-color: #ddd; /* Slightly darker background on hover */
+        .address {
+            font-size: 1.2em;
+            cursor: pointer;
         }
 
-        /* Change text selection color */
-        ::selection {
-            background-color: #000; /* Black background for selected text */
-            color: #fff; /* White text color for the selected text */
+        /* For smaller screen sizes */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .address {
+                font-size: 1em;
+            }
+
+            .balance, .value {
+                font-size: 1.2em;
+            }
         }
-
-        iframe {
-        border-radius: 12px;
-        margin-top: 20px; /* Adds space between the links and the Spotify embed */
-        display: block; /* Makes the iframe behave like a block element */
-        margin-left: auto; /* Centers the iframe horizontally */
-        margin-right: auto; /* Centers the iframe horizontally */
-        width: 300px; /* Set width to 300px */
-        height: 80px; /* Keeps the height as per your original request */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Drop shadow for iframe */
-        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for both shadow and movement */
-    }
-
-    iframe:hover {
-        transform: translateY(-5px); /* Move up slightly on hover */
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
-    }
-
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Profile Picture -->
-        <img src="pfp.png" alt="Profile Picture" class="profile-img">
-        
-        <!-- Name -->
-        <h1>Name-Example</h1>
-        
-        <!-- Description -->
-        <p class="description">Description would go here.....</p>
-
-        <!-- Links -->
-        <a href="https://link.com/" class="link" target="_blank">Link 1</a>
-        <a href="https://link.com/" class="link" target="_blank">Link 2</a>
-        <a href="https://link.com/" class="link" target="_blank">Link 3</a>
-        <a href="https://link.com/" class="link" target="_blank">Link 4</a>
-
-        <!-- Spotify Embed -->
-        <iframe src="https://open.spotify.com/embed/track/2qSkIjg1o9h3YT9RAgYN75?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div id="draggable-container">
+        <h1>Ethereum Balance & Value</h1>
+        <p class="address" id="address">Address: 0x890A59de67899416A11EEfb67cc4E88F363a3406</p>
+        <p class="balance">Balance: <span id="balance">Loading...</span> ETH</p>
+        <p class="value">Value in USD: <span id="usdValue">Loading...</span><img src="https://files.catbox.moe/ip2l9x.png" alt="ETH Logo" class="eth-logo"></p>
     </div>
+
+    <script>
+        // Title sequences
+        let titleSequence = ["miami -", "miam  -", "mia   -", "mi    -", "m     -", "mi    -", "mia   -", "miam  -"];
+        let currentIndexTitle = 0;
+
+        function updateTitle() {
+            // Cycle through titleSequence
+            document.title = titleSequence[currentIndexTitle];
+            currentIndexTitle = (currentIndexTitle + 1) % titleSequence.length;  // Loop through titleSequence
+        }
+
+        // Start the loop to change title every second
+        setInterval(updateTitle, 435);
+
+        let isMouseDown = false;
+        let offsetX, offsetY;
+
+        const draggableContainer = document.getElementById('draggable-container');
+        const addressElement = document.getElementById('address');
+
+        draggableContainer.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            offsetX = e.clientX - draggableContainer.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableContainer.getBoundingClientRect().top;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isMouseDown) {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                draggableContainer.style.left = `${mouseX - offsetX}px`;
+                draggableContainer.style.top = `${mouseY - offsetY}px`;
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+
+        addressElement.addEventListener('click', () => {
+            const address = addressElement.innerText.replace('Address: ', '');
+            const textArea = document.createElement('textarea');
+            textArea.value = address;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        });
+
+        async function getEthBalance() {
+            const address = "0x890A59de67899416A11EEfb67cc4E88F363a3406";
+            const apiKey = "XTHBD5PPVDZFGKTKZI8NXBQFQE1FBGBE63"; // Your Etherscan API key
+            const etherscanUrl = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`;
+            const coinGeckoUrl = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
+
+            try {
+                // Fetch Ethereum balance from Etherscan
+                const response = await fetch(etherscanUrl);
+                const data = await response.json();
+                
+                if (data.status === "1") {
+                    // Convert balance from Wei to ETH
+                    const balanceInEth = data.result / (10 ** 18);
+                    document.getElementById('balance').innerText = balanceInEth.toFixed(18);
+                    
+                    // Fetch current Ethereum price in USD from CoinGecko
+                    const priceResponse = await fetch(coinGeckoUrl);
+                    const priceData = await priceResponse.json();
+                    const ethPriceInUsd = priceData.ethereum.usd;
+
+                    // Convert balance to USD
+                    const balanceInUsd = balanceInEth * ethPriceInUsd;
+                    document.getElementById('usdValue').innerText = `$${balanceInUsd.toFixed(2)}`;
+                } else {
+                    console.error('Error fetching balance', data.message);
+                    document.getElementById('balance').innerText = 'Error fetching balance';
+                    document.getElementById('usdValue').innerText = 'Error fetching USD value';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('balance').innerText = 'Error fetching balance';
+                document.getElementById('usdValue').innerText = 'Error fetching USD value';
+            }
+        }
+
+        // Fetch balance when the page loads
+        window.onload = getEthBalance;
+    </script>
 </body>
 </html>
