@@ -4,38 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@</title>
-    <!-- Set favicon to your provided image -->
     <link rel="icon" href="https://files.catbox.moe/82xzyf.png" />
-    <!-- Import DM Sans font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
     <style>
-        /* Body background color */
         body {
             font-family: 'DM Sans', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: black; /* Set background to black */
-            color: rgb(116, 212, 204); /* Default text color */
-            user-select: none; /* Prevent text selection */
+            background-color: black;
+            color: rgb(255, 255, 255);
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            cursor: default; /* Ensures the cursor is always default */
         }
 
-        /* Title Style */
         h1 {
-            color: white; /* Keep the title in white */
+            color: white;
         }
-        /* Set the cursor to default globally */
-* {
-    cursor: default !important;
-}
 
-
-        /* Specific text styles for Balance and Address */
         .balance, .address {
-            color: white; /* White color for balance and address */
+            color: white;
         }
 
         .value {
-            color: rgb(116, 212, 204); /* Keep the value text in RGB color */
+            color: rgb(116, 212, 204);
             display: inline-block;
             vertical-align: middle;
         }
@@ -45,16 +39,15 @@
             height: 32px;
             vertical-align: middle;
             margin-left: 8px;
-            margin-top: 0.5%; /* Adjust logo's vertical position */
+            margin-top: 0.5%;
         }
 
-        /* Draggable container */
         #draggable-container {
             position: absolute;
             padding: 20px;
-            background-color: black; /* Keep background black */
-            color: rgb(116, 212, 204); /* Set text color for draggable container */
-            cursor: grab;
+            background-color: black;
+            color: rgb(116, 212, 204);
+            z-index: 100;
         }
 
         .balance, .value {
@@ -67,7 +60,65 @@
             cursor: pointer;
         }
 
-        /* For smaller screen sizes */
+        /* Transaction History Section */
+        #transaction-history {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px; /* Adjust the height as needed */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: rgb(116, 212, 204);
+            padding: 20px;
+            overflow-y: auto; /* Vertical scrolling */
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+            font-size: 1em;
+            user-select: text; /* Allow text selection */
+        }
+
+        .transaction {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgb(255, 255, 255); /* Separator line */
+        }
+
+        .transaction span {
+            display: block;
+        }
+
+        /* Custom Scrollbar Styles */
+        /* For Webkit browsers (Chrome, Safari) */
+        #transaction-history::-webkit-scrollbar {
+            width: 10px; /* Set width of vertical scrollbar */
+        }
+
+        #transaction-history::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5); /* Darker track */
+            border-radius: 5px;
+        }
+
+        #transaction-history::-webkit-scrollbar-thumb {
+            background-color: rgb(116, 212, 204); /* Custom thumb color */
+            border-radius: 5px;
+            border: 2px solid rgba(0, 0, 0, 0.5); /* Border around the thumb */
+        }
+
+        #transaction-history::-webkit-scrollbar-thumb:hover {
+            background-color: rgb(87, 161, 152); /* Thumb color on hover */
+        }
+
+        /* For Firefox */
+        #transaction-history {
+            scrollbar-width: thin;
+            scrollbar-color: rgb(255, 255, 255) rgba(0, 0, 0, 0.5); /* Thumb and track color for Firefox */
+        }
+
+        /* Custom selection color */
+        ::selection {
+            background-color: rgb(116, 212, 204); /* Selection background color */
+            color: white; /* Selected text color */
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
@@ -91,18 +142,21 @@
         <p class="value">Value in USD: <span id="usdValue">Loading...</span><img src="https://files.catbox.moe/ip2l9x.png" alt="ETH Logo" class="eth-logo"></p>
     </div>
 
+    <!-- Transaction History -->
+    <div id="transaction-history">
+        <h2>Transaction History</h2>
+        <!-- Transactions will be appended here dynamically -->
+    </div>
+
     <script>
-        // Title sequences
         let titleSequence = ["miami -", "miam  -", "mia   -", "mi    -", "m     -", "mi    -", "mia   -", "miam  -"];
         let currentIndexTitle = 0;
 
         function updateTitle() {
-            // Cycle through titleSequence
             document.title = titleSequence[currentIndexTitle];
-            currentIndexTitle = (currentIndexTitle + 1) % titleSequence.length;  // Loop through titleSequence
+            currentIndexTitle = (currentIndexTitle + 1) % titleSequence.length;
         }
 
-        // Start the loop to change title every second
         setInterval(updateTitle, 435);
 
         let isMouseDown = false;
@@ -122,8 +176,27 @@
                 const mouseX = e.clientX;
                 const mouseY = e.clientY;
 
-                draggableContainer.style.left = `${mouseX - offsetX}px`;
-                draggableContainer.style.top = `${mouseY - offsetY}px`;
+                // Get the size of the window (viewport)
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                // Get the size of the draggable container
+                const containerWidth = draggableContainer.offsetWidth;
+                const containerHeight = draggableContainer.offsetHeight;
+
+                // Calculate new left and top positions while keeping the container within the viewport bounds
+                let newLeft = mouseX - offsetX;
+                let newTop = mouseY - offsetY;
+
+                // Prevent dragging the container off the screen
+                if (newLeft < 0) newLeft = 0;
+                if (newTop < 0) newTop = 0;
+                if (newLeft + containerWidth > windowWidth) newLeft = windowWidth - containerWidth;
+                if (newTop + containerHeight > windowHeight) newTop = windowHeight - containerHeight;
+
+                // Set the new position of the container
+                draggableContainer.style.left = `${newLeft}px`;
+                draggableContainer.style.top = `${newTop}px`;
             }
         });
 
@@ -148,21 +221,17 @@
             const coinGeckoUrl = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
 
             try {
-                // Fetch Ethereum balance from Etherscan
                 const response = await fetch(etherscanUrl);
                 const data = await response.json();
-                
+
                 if (data.status === "1") {
-                    // Convert balance from Wei to ETH
                     const balanceInEth = data.result / (10 ** 18);
                     document.getElementById('balance').innerText = balanceInEth.toFixed(18);
-                    
-                    // Fetch current Ethereum price in USD from CoinGecko
+
                     const priceResponse = await fetch(coinGeckoUrl);
                     const priceData = await priceResponse.json();
                     const ethPriceInUsd = priceData.ethereum.usd;
 
-                    // Convert balance to USD
                     const balanceInUsd = balanceInEth * ethPriceInUsd;
                     document.getElementById('usdValue').innerText = `$${balanceInUsd.toFixed(2)}`;
                 } else {
@@ -177,8 +246,46 @@
             }
         }
 
-        // Fetch balance when the page loads
-        window.onload = getEthBalance;
+        async function getTransactionHistory() {
+            const address = "0x890A59de67899416A11EEfb67cc4E88F363a3406";
+            const apiKey = "XTHBD5PPVDZFGKTKZI8NXBQFQE1FBGBE63"; // Your Etherscan API key
+            const etherscanUrl = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=5&sort=desc&apikey=${apiKey}`;
+
+            try {
+                const response = await fetch(etherscanUrl);
+                const data = await response.json();
+
+                if (data.status === "1" && data.result.length > 0) {
+                    const transactions = data.result;
+                    const transactionHistoryDiv = document.getElementById('transaction-history');
+                    transactions.forEach(transaction => {
+                        const transactionDiv = document.createElement('div');
+                        transactionDiv.classList.add('transaction');
+                        transactionDiv.innerHTML = `
+                            <span><strong>Tx Hash:</strong> ${transaction.hash}</span>
+                            <span><strong>Amount:</strong> ${parseFloat(transaction.value) / 10 ** 18} ETH</span>
+                            <span><strong>Date:</strong> ${new Date(transaction.timeStamp * 1000).toLocaleString()}</span>
+                        `;
+                        transactionHistoryDiv.appendChild(transactionDiv);
+                    });
+                } else {
+                    const noTransactionsDiv = document.createElement('div');
+                    noTransactionsDiv.innerText = "No transactions found.";
+                    document.getElementById('transaction-history').appendChild(noTransactionsDiv);
+                }
+            } catch (error) {
+                console.error('Error fetching transaction history:', error);
+                const errorDiv = document.createElement('div');
+                errorDiv.innerText = "Error fetching transaction history.";
+                document.getElementById('transaction-history').appendChild(errorDiv);
+            }
+        }
+
+        // Fetch balance and transactions when the page loads
+        window.onload = () => {
+            getEthBalance();
+            getTransactionHistory();
+        };
     </script>
 </body>
 </html>
