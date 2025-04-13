@@ -1,291 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@</title>
-    <link rel="icon" href="https://files.catbox.moe/82xzyf.png" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'DM Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            color: rgb(255, 255, 255);
-            user-select: none;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            cursor: default; /* Ensures the cursor is always default */
-        }
-
-        h1 {
-            color: white;
-        }
-
-        .balance, .address {
-            color: white;
-        }
-
-        .value {
-            color: rgb(116, 212, 204);
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .eth-logo {
-            width: 32px;
-            height: 32px;
-            vertical-align: middle;
-            margin-left: 8px;
-            margin-top: 0.5%;
-        }
-
-        #draggable-container {
-            position: absolute;
-            padding: 20px;
-            background-color: black;
-            color: rgb(116, 212, 204);
-            z-index: 100;
-        }
-
-        .balance, .value {
-            font-size: 1.6em;
-            margin-top: 10px;
-        }
-
-        .address {
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        /* Transaction History Section */
-        #transaction-history {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px; /* Adjust the height as needed */
-            background-color: rgba(0, 0, 0, 0.8);
-            color: rgb(116, 212, 204);
-            padding: 20px;
-            overflow-y: auto; /* Vertical scrolling */
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
-            font-size: 1em;
-            user-select: text; /* Allow text selection */
-        }
-
-        .transaction {
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgb(255, 255, 255); /* Separator line */
-        }
-
-        .transaction span {
-            display: block;
-        }
-
-        /* Custom Scrollbar Styles */
-        /* For Webkit browsers (Chrome, Safari) */
-        #transaction-history::-webkit-scrollbar {
-            width: 10px; /* Set width of vertical scrollbar */
-        }
-
-        #transaction-history::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.5); /* Darker track */
-            border-radius: 5px;
-        }
-
-        #transaction-history::-webkit-scrollbar-thumb {
-            background-color: rgb(116, 212, 204); /* Custom thumb color */
-            border-radius: 5px;
-            border: 2px solid rgba(0, 0, 0, 0.5); /* Border around the thumb */
-        }
-
-        #transaction-history::-webkit-scrollbar-thumb:hover {
-            background-color: rgb(87, 161, 152); /* Thumb color on hover */
-        }
-
-        /* For Firefox */
-        #transaction-history {
-            scrollbar-width: thin;
-            scrollbar-color: rgb(255, 255, 255) rgba(0, 0, 0, 0.5); /* Thumb and track color for Firefox */
-        }
-
-        /* Custom selection color */
-        ::selection {
-            background-color: rgb(116, 212, 204); /* Selection background color */
-            color: white; /* Selected text color */
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            .address {
-                font-size: 1em;
-            }
-
-            .balance, .value {
-                font-size: 1.2em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Discord Profile Submit</title>
+  <style>
+    body {
+      background: #1e1e2f;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form, .login-btn {
+      margin-top: 2rem;
+    }
+    input, textarea {
+      width: 300px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #7289da;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div id="draggable-container">
-        <h1>Ethereum Balance & Value</h1>
-        <p class="address" id="address">Address: 0x890A59de67899416A11EEfb67cc4E88F363a3406</p>
-        <p class="balance">Balance: <span id="balance">Loading...</span> ETH</p>
-        <p class="value">Value in USD: <span id="usdValue">Loading...</span><img src="https://files.catbox.moe/ip2l9x.png" alt="ETH Logo" class="eth-logo"></p>
-    </div>
+  <h1>Welcome to Miami's Profile Submitter</h1>
 
-    <!-- Transaction History -->
-    <div id="transaction-history">
-        <h2>Transaction History</h2>
-        <!-- Transactions will be appended here dynamically -->
-    </div>
+  <div class="login-btn">
+    <a href="https://discord.com/oauth2/authorize?client_id=1361047871041966311&redirect_uri=https%3A%2F%2Fmiamiultra.github.io%2Fcallback.html&response_type=token&scope=identify">
+      <button>Login with Discord</button>
+    </a>
+  </div>
 
-    <script>
-        let titleSequence = ["miami -", "miam  -", "mia   -", "mi    -", "m     -", "mi    -", "mia   -", "miam  -"];
-        let currentIndexTitle = 0;
+  <div id="profileForm" class="form" style="display: none;">
+    <p><strong id="discordTag"></strong></p>
+    <img id="avatar" width="80" style="border-radius: 50%;" /><br>
+    <input type="text" id="displayName" placeholder="Display Name"><br>
+    <textarea id="aboutMe" placeholder="About Me" rows="4"></textarea><br>
+    <input type="text" id="profilePic" placeholder="Profile Picture URL (optional)"><br>
+    <button onclick="submitProfile()">Submit Profile</button>
+  </div>
 
-        function updateTitle() {
-            document.title = titleSequence[currentIndexTitle];
-            currentIndexTitle = (currentIndexTitle + 1) % titleSequence.length;
-        }
+  <script>
+    const user = JSON.parse(localStorage.getItem("discordUser"));
+    if (user) {
+      document.querySelector(".login-btn").style.display = "none";
+      document.getElementById("profileForm").style.display = "block";
+      document.getElementById("discordTag").textContent = `${user.username}#${user.discriminator}`;
+      document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+    }
 
-        setInterval(updateTitle, 435);
+    async function submitProfile() {
+      const displayName = document.getElementById("displayName").value;
+      const aboutMe = document.getElementById("aboutMe").value;
+      const profilePic = document.getElementById("profilePic").value;
 
-        let isMouseDown = false;
-        let offsetX, offsetY;
+      const payload = {
+        embeds: [
+          {
+            title: "📥 New Profile Submission",
+            color: 0x7289da,
+            fields: [
+              { name: "Discord User", value: `${user.username}#${user.discriminator}` },
+              { name: "Display Name", value: displayName || "N/A" },
+              { name: "About Me", value: aboutMe || "N/A" },
+              { name: "Profile Pic Link", value: profilePic || "N/A" }
+            ],
+            thumbnail: {
+              url: profilePic || `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+            },
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
 
-        const draggableContainer = document.getElementById('draggable-container');
-        const addressElement = document.getElementById('address');
+      await fetch("https://discord.com/api/webhooks/1361046832876097579/Uq1jFpa-nIIV8g5rONJgkBahRVhjlygqfiEo3EGUsXAZWVHE3xRiKRAPVIP_t0NCZy2K", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
 
-        draggableContainer.addEventListener('mousedown', (e) => {
-            isMouseDown = true;
-            offsetX = e.clientX - draggableContainer.getBoundingClientRect().left;
-            offsetY = e.clientY - draggableContainer.getBoundingClientRect().top;
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (isMouseDown) {
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-
-                // Get the size of the window (viewport)
-                const windowWidth = window.innerWidth;
-                const windowHeight = window.innerHeight;
-
-                // Get the size of the draggable container
-                const containerWidth = draggableContainer.offsetWidth;
-                const containerHeight = draggableContainer.offsetHeight;
-
-                // Calculate new left and top positions while keeping the container within the viewport bounds
-                let newLeft = mouseX - offsetX;
-                let newTop = mouseY - offsetY;
-
-                // Prevent dragging the container off the screen
-                if (newLeft < 0) newLeft = 0;
-                if (newTop < 0) newTop = 0;
-                if (newLeft + containerWidth > windowWidth) newLeft = windowWidth - containerWidth;
-                if (newTop + containerHeight > windowHeight) newTop = windowHeight - containerHeight;
-
-                // Set the new position of the container
-                draggableContainer.style.left = `${newLeft}px`;
-                draggableContainer.style.top = `${newTop}px`;
-            }
-        });
-
-        window.addEventListener('mouseup', () => {
-            isMouseDown = false;
-        });
-
-        addressElement.addEventListener('click', () => {
-            const address = addressElement.innerText.replace('Address: ', '');
-            const textArea = document.createElement('textarea');
-            textArea.value = address;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-        });
-
-        async function getEthBalance() {
-            const address = "0x890A59de67899416A11EEfb67cc4E88F363a3406";
-            const apiKey = "XTHBD5PPVDZFGKTKZI8NXBQFQE1FBGBE63"; // Your Etherscan API key
-            const etherscanUrl = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=${apiKey}`;
-            const coinGeckoUrl = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
-
-            try {
-                const response = await fetch(etherscanUrl);
-                const data = await response.json();
-
-                if (data.status === "1") {
-                    const balanceInEth = data.result / (10 ** 18);
-                    document.getElementById('balance').innerText = balanceInEth.toFixed(18);
-
-                    const priceResponse = await fetch(coinGeckoUrl);
-                    const priceData = await priceResponse.json();
-                    const ethPriceInUsd = priceData.ethereum.usd;
-
-                    const balanceInUsd = balanceInEth * ethPriceInUsd;
-                    document.getElementById('usdValue').innerText = `$${balanceInUsd.toFixed(2)}`;
-                } else {
-                    console.error('Error fetching balance', data.message);
-                    document.getElementById('balance').innerText = 'Error fetching balance';
-                    document.getElementById('usdValue').innerText = 'Error fetching USD value';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('balance').innerText = 'Error fetching balance';
-                document.getElementById('usdValue').innerText = 'Error fetching USD value';
-            }
-        }
-
-        async function getTransactionHistory() {
-            const address = "0x890A59de67899416A11EEfb67cc4E88F363a3406";
-            const apiKey = "XTHBD5PPVDZFGKTKZI8NXBQFQE1FBGBE63"; // Your Etherscan API key
-            const etherscanUrl = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=5&sort=desc&apikey=${apiKey}`;
-
-            try {
-                const response = await fetch(etherscanUrl);
-                const data = await response.json();
-
-                if (data.status === "1" && data.result.length > 0) {
-                    const transactions = data.result;
-                    const transactionHistoryDiv = document.getElementById('transaction-history');
-                    transactions.forEach(transaction => {
-                        const transactionDiv = document.createElement('div');
-                        transactionDiv.classList.add('transaction');
-                        transactionDiv.innerHTML = `
-                            <span><strong>Tx Hash:</strong> ${transaction.hash}</span>
-                            <span><strong>Amount:</strong> ${parseFloat(transaction.value) / 10 ** 18} ETH</span>
-                            <span><strong>Date:</strong> ${new Date(transaction.timeStamp * 1000).toLocaleString()}</span>
-                        `;
-                        transactionHistoryDiv.appendChild(transactionDiv);
-                    });
-                } else {
-                    const noTransactionsDiv = document.createElement('div');
-                    noTransactionsDiv.innerText = "No transactions found.";
-                    document.getElementById('transaction-history').appendChild(noTransactionsDiv);
-                }
-            } catch (error) {
-                console.error('Error fetching transaction history:', error);
-                const errorDiv = document.createElement('div');
-                errorDiv.innerText = "Error fetching transaction history.";
-                document.getElementById('transaction-history').appendChild(errorDiv);
-            }
-        }
-
-        // Fetch balance and transactions when the page loads
-        window.onload = () => {
-            getEthBalance();
-            getTransactionHistory();
-        };
-    </script>
+      alert("✅ Profile submitted!");
+    }
+  </script>
 </body>
 </html>
