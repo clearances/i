@@ -36,17 +36,30 @@
   </div>
 
   <script>
-    const username = window.location.pathname.split('/')[1]; // Extract the username from URL
-    const userData = JSON.parse(localStorage.getItem(username));
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
+    const gistId = urlParams.get("gistId");
 
-    if (userData) {
-      document.getElementById("discordName").textContent = `${userData.discord.username}#${userData.discord.discriminator}`;
-      document.getElementById("username").textContent = `Username: ${userData.username}`;
-      document.getElementById("aboutMe").textContent = `About Me: ${userData.aboutMe || "N/A"}`;
-      document.getElementById("profilePic").textContent = `Profile Pic: ${userData.profilePic || "N/A"}`;
-      document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${userData.discord.id}/${userData.discord.avatar}.png`;
+    if (gistId) {
+      // Fetch the Gist content from GitHub
+      fetch(`https://api.github.com/gists/${gistId}`)
+        .then(response => response.json())
+        .then(data => {
+          const fileContent = data.files[`${username}.json`].content;
+          const profileData = JSON.parse(fileContent);
+
+          // Display the profile data
+          document.getElementById("discordName").textContent = profileData.discordName;
+          document.getElementById("username").textContent = `Username: ${username}`;
+          document.getElementById("aboutMe").textContent = `About Me: ${profileData.aboutMe}`;
+          document.getElementById("profilePic").textContent = `Profile Pic: ${profileData.profilePic}`;
+          document.getElementById("avatar").src = profileData.profilePic;
+        })
+        .catch(err => {
+          document.body.innerHTML = "<h2>⚠️ Profile not found.</h2>";
+        });
     } else {
-      document.body.innerHTML = "<h2>⚠️ This profile doesn't exist!</h2>";
+      document.body.innerHTML = "<h2>⚠️ No profile found.</h2>";
     }
   </script>
 </body>
