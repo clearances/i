@@ -65,18 +65,47 @@
       const profilePic = document.getElementById("profilePic").value;
       const username = document.getElementById("username").value;
 
-      // Save user data in localStorage (including their chosen username)
-      const userData = {
-        discord: user,
-        displayName,
-        aboutMe,
-        profilePic,
-        username
+      // Construct the profile data
+      const profileData = {
+        discordName: `${user.username}#${user.discriminator}`,
+        displayName: displayName || "N/A",
+        aboutMe: aboutMe || "N/A",
+        profilePic: profilePic || `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
       };
-      localStorage.setItem(username, JSON.stringify(userData));
 
-      // Now create a page for their profile
-      window.location.href = `/${username}`;
+      // GitHub Gist API URL
+      const gistApiUrl = "https://api.github.com/gists";
+      const githubToken = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"; // Replace with your GitHub token
+
+      // Create Gist data
+      const gistData = {
+        description: `Profile of ${username}`,
+        public: true,
+        files: {
+          [`${username}.json`]: {
+            content: JSON.stringify(profileData, null, 2)
+          }
+        }
+      };
+
+      // Create the Gist via GitHub API
+      const response = await fetch(gistApiUrl, {
+        method: "POST",
+        headers: {
+          "Authorization": `token ${githubToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(gistData)
+      });
+
+      const data = await response.json();
+
+      if (data.id) {
+        // Redirect to the user's profile page
+        window.location.href = `https://internetknown.space/profile.html?username=${username}&gistId=${data.id}`;
+      } else {
+        alert("Error creating profile. Try again.");
+      }
     }
   </script>
 </body>
