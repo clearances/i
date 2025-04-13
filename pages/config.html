@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Set Username</title>
+</head>
+<body>
+  <h2>Set Your Username</h2>
+  <form id="username-form">
+    <input type="text" id="username" placeholder="Enter new username" required />
+    <button type="submit">Save</button>
+  </form>
+
+  <script>
+    document.getElementById("username-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+
+      const res = await fetch("/api/set-username", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username })
+      });
+
+      if (res.ok) {
+        window.location.href = "/";
+      } else {
+        alert("Failed to set username");
+      }
+    });
+  </script>
+</body>
+</html>
