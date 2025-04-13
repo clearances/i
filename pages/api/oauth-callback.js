@@ -14,8 +14,8 @@ export default async function handler(req, res) {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: process.env.DISCORD_CLIENT_ID,
-        client_secret: process.env.DISCORD_CLIENT_SECRET,
+        client_id: '1361047871041966311',  // Your client_id
+        client_secret: 'z83CpraoV-a2b4SFBSzHWal4bK4AOTnE',  // Your client_secret
         code,
         redirect_uri: 'https://internetknown.space/api/oauth-callback',
         grant_type: 'authorization_code',
