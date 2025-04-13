@@ -1,32 +1,16 @@
+<!-- /pages/config.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Set Username</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure Username</title>
 </head>
 <body>
-  <h2>Set Your Username</h2>
-  <form id="username-form">
-    <input type="text" id="username" placeholder="Enter new username" required />
-    <button type="submit">Save</button>
+  <h1>Welcome! Set your username</h1>
+  <form action="/api/set-username" method="POST">
+    <input type="text" name="username" placeholder="Enter your username" required />
+    <button type="submit">Save Username</button>
   </form>
-
-  <script>
-    document.getElementById("username-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const username = document.getElementById("username").value;
-
-      const res = await fetch("/api/set-username", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username })
-      });
-
-      if (res.ok) {
-        window.location.href = "/";
-      } else {
-        alert("Failed to set username");
-      }
-    });
-  </script>
 </body>
 </html>
