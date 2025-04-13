@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <style>
+    body {
+      background: #1e1e2f;
+      color: white;
+      text-align: center;
+      padding: 3rem;
+    }
+    .profile {
+      margin-top: 2rem;
+      border: 1px solid #7289da;
+      border-radius: 8px;
+      padding: 2rem;
+    }
+    img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+    h1, h2 {
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="profile" class="profile">
+    <img id="avatar" />
+    <h1 id="discordName"></h1>
+    <h2 id="username"></h2>
+    <p id="aboutMe"></p>
+    <p id="profilePic"></p>
+  </div>
+
+  <script>
+    const username = window.location.pathname.split('/')[1]; // Extract the username from URL
+    const userData = JSON.parse(localStorage.getItem(username));
+
+    if (userData) {
+      document.getElementById("discordName").textContent = `${userData.discord.username}#${userData.discord.discriminator}`;
+      document.getElementById("username").textContent = `Username: ${userData.username}`;
+      document.getElementById("aboutMe").textContent = `About Me: ${userData.aboutMe || "N/A"}`;
+      document.getElementById("profilePic").textContent = `Profile Pic: ${userData.profilePic || "N/A"}`;
+      document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${userData.discord.id}/${userData.discord.avatar}.png`;
+    } else {
+      document.body.innerHTML = "<h2>⚠️ This profile doesn't exist!</h2>";
+    }
+  </script>
+</body>
+</html>
