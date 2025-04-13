@@ -46,6 +46,7 @@
     <input type="text" id="displayName" placeholder="Display Name"><br>
     <textarea id="aboutMe" placeholder="About Me" rows="4"></textarea><br>
     <input type="text" id="profilePic" placeholder="Profile Picture URL (optional)"><br>
+    <input type="text" id="username" placeholder="Choose your username" required><br>
     <button onclick="submitProfile()">Submit Profile</button>
   </div>
 
@@ -62,35 +63,20 @@
       const displayName = document.getElementById("displayName").value;
       const aboutMe = document.getElementById("aboutMe").value;
       const profilePic = document.getElementById("profilePic").value;
+      const username = document.getElementById("username").value;
 
-      const payload = {
-        embeds: [
-          {
-            title: "📥 New Profile Submission",
-            color: 0x7289da,
-            fields: [
-              { name: "Discord User", value: `${user.username}#${user.discriminator}` },
-              { name: "Display Name", value: displayName || "N/A" },
-              { name: "About Me", value: aboutMe || "N/A" },
-              { name: "Profile Pic Link", value: profilePic || "N/A" }
-            ],
-            thumbnail: {
-              url: profilePic || `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-            },
-            timestamp: new Date().toISOString()
-          }
-        ]
+      // Save user data in localStorage (including their chosen username)
+      const userData = {
+        discord: user,
+        displayName,
+        aboutMe,
+        profilePic,
+        username
       };
+      localStorage.setItem(username, JSON.stringify(userData));
 
-      await fetch("https://discord.com/api/webhooks/1361046832876097579/Uq1jFpa-nIIV8g5rONJgkBahRVhjlygqfiEo3EGUsXAZWVHE3xRiKRAPVIP_t0NCZy2K", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      alert("✅ Profile submitted!");
+      // Now create a page for their profile
+      window.location.href = `/${username}`;
     }
   </script>
 </body>
