@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/deers",
-      "destination": "/deer%20site/hidden.html"
-    }
-  ]
-}
